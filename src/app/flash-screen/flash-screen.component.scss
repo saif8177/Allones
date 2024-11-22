@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Eater&family=Sixtyfour+Convergence&display=swap');
+
+.flash-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+    overflow: hidden;
+  
+    .red-circle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 200px;
+      height: 200px;
+      background-color: red;
+      border-radius: 50%;
+      animation: zoomOut 2s ease-in-out forwards; /* 2-second animation */
+      animation-delay: 4s; /* Start animation after 8 seconds */
+      
+      .app-name {
+        color: white;
+        font-size: 35px;
+        font-weight: bold;
+         /* Apply the Sixtyfour Convergence font */
+         font-family: 'Eater', cursive;
+        animation: shake 2s infinite; /* Shake animation */
+         /* Text shadow with grey color */
+         text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7); /* Grey shadow */
+      }
+    }
+  }
+  @keyframes shake {
+    0%, 100% {
+      transform: rotate(0deg); /* No rotation at the start and end */
+    }
+    40% {
+      transform: rotate(4deg); /* Rotate 4% to the right at the halfway point */
+    }
+    60% {
+      transform: rotate(-4deg); /* Rotate 4% to the right at the halfway point */
+    }
+  }
+  
+  @keyframes zoomOut {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(50);
+      opacity: 0;
+    }
+  }
+  

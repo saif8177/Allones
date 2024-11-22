@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-
+import { SignupComponent } from './signup/signup.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { LoginComponent } from './login/login.component';
 const routes: Routes = [
   {
     path: 'home',
@@ -11,6 +13,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  { path: 'signup', component: SignupComponent },
+  { path: 'welcome', component: WelcomeComponent },
+  { path: 'login', component: LoginComponent },
+ 
 ];
 
 @NgModule({
