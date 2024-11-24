@@ -1,77 +1,75 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'; // Import Router to handle navigation
-import { NgForm } from '@angular/forms'; 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
-export class SignupComponent  implements OnInit {
-  passwordVisible: boolean = false; 
-  successMessage: string = '';
+export class SignupComponent implements OnInit {
+  signupForm!: FormGroup;
+  passwordVisible: boolean = false;
   toastMessage: string = '';
-  user = {
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  };
 
+  constructor(private fb: FormBuilder, private router: Router) {}
 
-  // Password validation regex (minimum 8 characters, at least one letter, one number, and one symbol)
-  passwordPattern: string = '^(?=.*[A-Za-z])(?=.*\d)(?=.*[!$%^&*()_+|~=`{}\[\]:";<>?,./]).{8,}$';
+  ngOnInit() {
+  this.signupForm = this.fb.group(
+    {
+      fullName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/),
+        ],
+      ],
+      confirmPassword: ['', Validators.required],
+    },
+    { validators: this.passwordMatchValidator }
+  );
+}
 
   // Toggle password visibility
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
 
-
-// Function to validate email format
-isEmailValid(email: string): boolean {
-  const emailRegex = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
-  return emailRegex.test(email);
-}
-
-   // Function to validate password format
-   isPasswordValid(password: string): boolean {
-    const passwordRegex = new RegExp(this.passwordPattern);
-    return passwordRegex.test(password);
+  // Custom validator to check if passwords match
+  passwordMatchValidator(formGroup: FormGroup) {
+    const password = formGroup.get('password')?.value;
+    const confirmPassword = formGroup.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { passwordMismatch: true };
   }
-  isFormValid(): boolean {
-    return (
-      !!this.user.fullName && // Ensure fullName is non-empty
-      this.isEmailValid(this.user.email) &&
-      this.isPasswordValid(this.user.password) &&
-      this.user.password === this.user.confirmPassword
-    );
-  }
-  
 
   // Show a toast message
   showToast(message: string) {
     this.toastMessage = message;
     setTimeout(() => {
-      this.toastMessage = ''; // Clear the message after 3 seconds
+      this.toastMessage = '';
     }, 3000);
   }
 
   // Handle form submission
   onSubmit() {
-    if (this.isFormValid()) {
+    console.log('Form Submitted:', this.signupForm.value);
+    console.log('Password validity:', this.signupForm.get('password')?.errors);
+    console.log('Form validity:', this.signupForm.valid);
+
+    if (this.signupForm.valid) {
       this.showToast('Account created successfully!');
       setTimeout(() => {
-        this.router.navigate(['/home']); // Navigate to the home page
+        this.router.navigate(['/home']).catch((err) =>
+          console.error('Navigation error:', err)
+        );
       }, 1500);
     } else {
-      this.showToast('Wrong email or enter correct password');
+      this.showToast('Please fill all fields correctly.');
     }
   }
-
-
-  constructor(private router: Router) {}
-  
-  ngOnInit() {}
-
 }
+ 
+    
+

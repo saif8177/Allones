@@ -1,100 +1,102 @@
 <div class="signup-container">
-    <div class="login-card">
-      <div class="avatar">
-        <img src="../../assets/done.png" alt="Avatar">
-      </div>
-      <form>
-        <!-- Full Name -->
-        <div class="input-group">
-          <label for="fullName">
-            <i class="fas fa-user">&nbsp;</i>
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="fullName"
-            placeholder="Enter your full name"
-            [(ngModel)]="user.fullName"
-            required
-          />
-        </div>
-  
-        <!-- Email -->
-        <div class="input-group">
-          <label for="email">
-            <i class="fas fa-envelope">&nbsp;</i>
-            Email ID
-          </label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            [(ngModel)]="user.email"
-            required
-          />
-          <div *ngIf="user.email && !isEmailValid(user.email)" class="error">
-            Invalid email address
-          </div>
-        </div>
-  
-        <!-- Password -->
-        <div class="input-group">
-          <label for="password">
-            <i class="fas fa-lock">&nbsp;</i>
-            Password
-          </label>
-          <div style="display: flex; align-items: center;">
-            <input
-              type="{{ passwordVisible ? 'text' : 'password' }}"
-              id="password"
-              placeholder="Enter your password"
-              [(ngModel)]="user.password"
-              required
-            />
-            <i
-              [class]="passwordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"
-              style="cursor: pointer; margin-left: 10px;"
-              (click)="togglePasswordVisibility()"
-            ></i>
-          </div>
-          <div *ngIf="user.password && !isPasswordValid(user.password)" class="error">
-            Password must be at least 8 characters long and contain letters, numbers, and symbols.
-          </div>
-        </div>
-  
-        <!-- Confirm Password -->
-        <div class="input-group">
-          <label for="confirmPassword">
-            <i class="fas fa-lock">&nbsp;</i>
-            Confirm Password
-          </label>
-          <input
-            type="{{ passwordVisible ? 'text' : 'password' }}"
-            id="confirmPassword"
-            placeholder="Confirm your password"
-            [(ngModel)]="user.confirmPassword"
-            required
-          />
-          <div *ngIf="user.confirmPassword && user.password !== user.confirmPassword" class="error">
-            Passwords must match.
-          </div>
-        </div>
-  
-        <!-- Toast Message -->
-        <div *ngIf="toastMessage" class="toast">
-          {{ toastMessage }}
-        </div>
-  
-        <!-- Submit Button -->
-        <button
-          type="button"
-          class="login-btn"
-          [disabled]="!isFormValid()"
-          (click)="onSubmit()"
-        >
-          Sign Up
-        </button>
-      </form>
+  <div class="login-card">
+    <div class="avatar">
+      <img src="../../assets/done.png" alt="Avatar">
     </div>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <!-- Full Name -->
+      <div class="input-group">
+        <label for="fullName">
+          <i class="fas fa-user">&nbsp;</i>
+          Full Name
+        </label>
+        <input
+          type="text"
+          id="fullName"
+          placeholder="Enter your full name"
+          formControlName="fullName"
+        />
+        <div *ngIf="signupForm.get('fullName')?.invalid && signupForm.get('fullName')?.touched" class="error">
+          Full name is required.
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="input-group">
+        <label for="email">
+          <i class="fas fa-envelope">&nbsp;</i>
+          Email ID
+        </label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          formControlName="email"
+        />
+        <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="error">
+          Invalid email address.
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="input-group">
+        <label for="password">
+          <i class="fas fa-lock">&nbsp;</i>
+          Password
+        </label>
+        <div style="display: flex; align-items: center;">
+          <input
+            [type]="passwordVisible ? 'text' : 'password'"
+            id="password"
+            placeholder="Enter your password"
+            formControlName="password"
+          />
+          <i
+            [class]="passwordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"
+            style="cursor: pointer; margin-left: 10px;"
+            (click)="togglePasswordVisibility()"
+          ></i>
+        </div>
+        <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="error">
+          Password must meet the required criteria.
+        </div>
+      </div>
+      <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="error">
+        Password must be at least 8 characters long and contain letters, numbers, and symbols.
+      </div>
+      
+
+      <!-- Confirm Password -->
+      <div class="input-group">
+        <label for="confirmPassword">
+          <i class="fas fa-lock">&nbsp;</i>
+          Confirm Password
+        </label>
+        <input
+          [type]="passwordVisible ? 'text' : 'password'"
+          id="confirmPassword"
+          placeholder="Confirm your password"
+          formControlName="confirmPassword"
+        />
+        <div *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('confirmPassword')?.touched" class="error">
+          Passwords must match.
+        </div>
+      </div>
+
+      <!-- Toast Message -->
+      <div *ngIf="toastMessage" class="toast">
+        {{ toastMessage }}
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="login-btn"
+        
+      >
+        Sign Up
+      </button>
+    
+    </form>
   </div>
-  
+</div>

@@ -4,6 +4,7 @@ import { SignupComponent } from './signup/signup.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
 import { FlashScreenComponent } from './flash-screen/flash-screen.component';
+import { HomePage } from './home/home.page';
 const routes: Routes = [
   {
     path: 'flashscreen',
@@ -19,6 +20,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   { path: 'signup', component: SignupComponent },
+  { path: 'home', component: HomePage },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },
  
