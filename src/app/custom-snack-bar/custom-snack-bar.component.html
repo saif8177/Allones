@@ -1,0 +1,7 @@
+<div class="snack-bar-container">
+  <!-- Smile icon for "Welcome Back!" -->
+  <mat-icon *ngIf="data.icon === 'smile-icon'" class="snack-bar-icon">mood</mat-icon>
+  <!-- Warning icon for all other messages -->
+  <mat-icon *ngIf="data.icon === 'warning-icon'" class="snack-bar-icon">warning</mat-icon>
+  <span class="snack-bar-message">{{ data.message }}</span>
+</div>

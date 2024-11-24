@@ -11,10 +11,12 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CustomSnackBarComponent } from './custom-snack-bar/custom-snack-bar.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [AppComponent, SignupComponent, WelcomeComponent, LoginComponent],
-  imports: [MatSnackBarModule, BrowserModule, FormsModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, BrowserAnimationsModule],
+  declarations: [AppComponent, SignupComponent, WelcomeComponent, LoginComponent, CustomSnackBarComponent],
+  imports: [MatSnackBarModule, MatIconModule, BrowserModule, FormsModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, BrowserAnimationsModule, ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

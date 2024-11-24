@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
+import { CustomSnackBarComponent } from '../custom-snack-bar/custom-snack-bar.component';
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +14,7 @@ export class SignupComponent implements OnInit {
   passwordVisible: boolean = false;
   toastMessage: string = '';
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar ) {}
 
   ngOnInit() {
   this.signupForm = this.fb.group(
@@ -44,29 +46,28 @@ export class SignupComponent implements OnInit {
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  // Show a toast message
-  showToast(message: string) {
-    this.toastMessage = message;
-    setTimeout(() => {
-      this.toastMessage = '';
-    }, 3000);
+   // Show a MatSnackBar message
+   showSnackBar(message: string) {
+    this.snackBar.openFromComponent(CustomSnackBarComponent, {
+      duration: 3000, // Duration in milliseconds
+      data: { message }, // Pass the message dynamically
+      horizontalPosition: 'center', // Align horizontally
+      verticalPosition: 'top', // Align vertically
+    });
   }
 
   // Handle form submission
   onSubmit() {
-    console.log('Form Submitted:', this.signupForm.value);
-    console.log('Password validity:', this.signupForm.get('password')?.errors);
-    console.log('Form validity:', this.signupForm.valid);
-
+   
     if (this.signupForm.valid) {
-      this.showToast('Account created successfully!');
+      this.showSnackBar('Account created successfully!');
       setTimeout(() => {
         this.router.navigate(['/home']).catch((err) =>
           console.error('Navigation error:', err)
         );
       }, 1500);
     } else {
-      this.showToast('Please fill all fields correctly.');
+      this.showSnackBar('Please fill all fields correctly.');
     }
   }
 }
