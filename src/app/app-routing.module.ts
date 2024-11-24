@@ -4,7 +4,10 @@ import { SignupComponent } from './signup/signup.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
 import { FlashScreenComponent } from './flash-screen/flash-screen.component';
+import { AuthGuard } from './auth.guard';
 import { HomePage } from './home/home.page';
+
+
 const routes: Routes = [
   {
     path: 'flashscreen',
@@ -12,7 +15,8 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: '',
