@@ -51,14 +51,51 @@ export class LoginComponent implements OnInit {
     });
   }
   // Handle login form submission
+  checkRememberMe() {
+    const credentials = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password,
+    };
+    localStorage.setItem('loginCredentials', JSON.stringify(credentials)); // Store credentials
+  }
+  uncheckRememberMe() {
+    localStorage.setItem('loginCredentials', JSON.stringify({})); // Set to an empty object instead of removing
+  }
+  
+  
   onSubmit() {
     if (this.loginForm.valid) {
+      // Handle "Remember Me" functionality
+      if (this.loginForm.value.rememberMe) {
+        this.checkRememberMe(); // Call the function to handle "Remember Me" checked state
+      } else {
+        this.uncheckRememberMe(); // Call the function to handle "Remember Me" unchecked state
+      }
+  
+      // Proceed with login
       this.authService.login(this.loginForm.value).subscribe(
-        (response: { status: string; message: string; token: string; }) => {
+        (response: { status: string; message: string; token: string }) => {
           if (response.status === 'success') {
             this.showSnackBar(response.message);
-            localStorage.setItem('authToken', response.token); // Store the token
-            setTimeout(() => this.router.navigate(['/home']), 1500);
+  
+            // Store the token
+            localStorage.setItem('authToken', response.token);
+  
+            // Redirect to home page
+            this.router.navigate(['/home']).then(
+              () => {
+                console.log('Redirected to /home');
+  
+                // Focus fix for accessibility
+                setTimeout(() => {
+                  const focusTarget = document.body; // Or document.querySelector('main')
+                  focusTarget.setAttribute('tabindex', '-1');
+                  focusTarget.focus();
+                  focusTarget.removeAttribute('tabindex');
+                }, 100);
+              },
+              (error) => console.error('Navigation error:', error)
+            );
           } else {
             this.showSnackBar(response.message);
           }
@@ -71,7 +108,6 @@ export class LoginComponent implements OnInit {
     } else {
       this.showSnackBar('Please enter valid credentials.');
     }
-  }
-  
+  }    
 
 }
