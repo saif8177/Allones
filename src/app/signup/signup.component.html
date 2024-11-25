@@ -62,9 +62,9 @@
         </div>
       </div>
       <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="error">
-        Password must be at least 8 characters long and contain letters, numbers, and symbols.
-      </div>
-      
+  Password must be at least 8 characters long and contain letters, numbers, and symbols.
+</div>
+
 
       <!-- Confirm Password -->
       <div class="input-group">
@@ -92,7 +92,7 @@
       <button
         type="submit"
         class="login-btn"
-        
+        [disabled]="signupForm.invalid"
       >
         Sign Up
       </button>

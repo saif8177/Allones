@@ -1,20 +1,31 @@
-<ion-header [translucent]="true">
-  
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      
+      <ion-icon name="location-outline"></ion-icon>
+      <span class="location-text">Hotel</span>
+      <p class="location-detail">Hyatt Regency Delhi Ring Rd, Bhikaji...</p>
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="plus-button">Plus</ion-button>
+      <ion-avatar>
+        <img src="https://via.placeholder.com/40" alt="User Avatar" />
+      </ion-avatar>
+    </ion-buttons>
   </ion-toolbar>
- 
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      
-    </ion-toolbar>
-  </ion-header>
- 
+<ion-content>
+  <!-- Search Section -->
+  <div class="search-section">
+    <ion-searchbar placeholder="Search for 'Pizza'"></ion-searchbar>
+  </div>
 
+  <!-- Explosive Offers Section -->
+  <div class="offers-section">
+    <h2>Explosive Offers for you</h2>
+    <div class="offer-card">
+      <span>MIN. ₹150 OFF</span>
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </div>
+  </div>
 </ion-content>

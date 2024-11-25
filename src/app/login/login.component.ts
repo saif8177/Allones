@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterModule, Router } from '@angular/router';
 import { CustomSnackBarComponent } from '../custom-snack-bar/custom-snack-bar.component';
-
+import { AuthService } from './services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,8 +13,8 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   passwordVisible: boolean = false;
   
-
-  constructor(private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) {}
+ 
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     // Initialize the login form
@@ -53,31 +53,23 @@ export class LoginComponent implements OnInit {
   // Handle login form submission
   onSubmit() {
     if (this.loginForm.valid) {
-      const { email, password, rememberMe } = this.loginForm.value;
-
-      if (rememberMe) {
-        localStorage.setItem('loginCredentials', JSON.stringify({ email, password }));
-      } else {
-        localStorage.removeItem('loginCredentials');
-      }
-        
-      this.showSnackBar('Welcome Back!', 'smile-icon');
-      
-      this.router.navigate(['/home'])
-        .then(success => {
-          if (success) {
-            console.log('Navigation to home successful.');
+      this.authService.login(this.loginForm.value).subscribe(
+        (response: { status: string; message: string; token: string; }) => {
+          if (response.status === 'success') {
+            this.showSnackBar(response.message);
+            localStorage.setItem('authToken', response.token); // Store the token
+            setTimeout(() => this.router.navigate(['/home']), 1500);
           } else {
-            console.error('Navigation failed!');
+            this.showSnackBar(response.message);
           }
-        })
-        .catch(err => console.error('Navigation error:', err));
+        },
+        (error: any) => {
+          console.error('Error:', error);
+          this.showSnackBar('Server error occurred.');
+        }
+      );
     } else {
-      this.snackBar.open('Please fill out the form correctly.', 'smile-icon', {
-        duration: 3000,
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
+      this.showSnackBar('Please enter valid credentials.');
     }
   }
   

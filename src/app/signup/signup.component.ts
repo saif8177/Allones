@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
 import { CustomSnackBarComponent } from '../custom-snack-bar/custom-snack-bar.component';
+import { SignupService } from './services/signup.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +15,7 @@ export class SignupComponent implements OnInit {
   passwordVisible: boolean = false;
   toastMessage: string = '';
 
-  constructor(private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar ) {}
+  constructor(private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar, private signupService: SignupService ) {}
 
   ngOnInit() {
   this.signupForm = this.fb.group(
@@ -58,14 +59,26 @@ export class SignupComponent implements OnInit {
 
   // Handle form submission
   onSubmit() {
-   
     if (this.signupForm.valid) {
-      this.showSnackBar('Account created successfully!');
-      setTimeout(() => {
-        this.router.navigate(['/home']).catch((err) =>
-          console.error('Navigation error:', err)
-        );
-      }, 1500);
+      const userData = this.signupForm.value;
+  
+      this.signupService.registerUser(userData).subscribe(
+        (response: { status: string; message: string; token: any; }) => {
+          if (response.status === 'success') {
+            this.showSnackBar(response.message);
+            localStorage.setItem('authToken', response.token || ''); // Save token if provided
+            setTimeout(() => {
+              this.router.navigate(['/home']);
+            }, 1500);
+          } else {
+            this.showSnackBar(response.message);
+          }
+        },
+        (error: any) => {
+          console.error('HTTP Error:', error);
+          this.showSnackBar('Server error occurred.');
+        }
+      );
     } else {
       this.showSnackBar('Please fill all fields correctly.');
     }
