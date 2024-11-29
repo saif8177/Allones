@@ -6,6 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { FlashScreenComponent } from './flash-screen/flash-screen.component';
 import { AuthGuard } from './auth.guard';
 import { HomePage } from './home/home.page';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+
 
 
 const routes: Routes = [
@@ -27,7 +29,7 @@ const routes: Routes = [
   { path: 'home', component: HomePage },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },
- 
+  { path: 'forgotpassword', component: ForgotPasswordComponent },
 ];
 
 @NgModule({
