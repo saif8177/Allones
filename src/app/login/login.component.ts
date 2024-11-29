@@ -12,7 +12,7 @@ import { AuthService } from './services/auth.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   passwordVisible: boolean = false;
-  
+  loading: boolean = false;
  
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {}
 
@@ -66,16 +66,20 @@ export class LoginComponent implements OnInit {
   
   onSubmit() {
     if (this.loginForm.valid) {
+      this.loading = true;
       // Handle "Remember Me" functionality
       if (this.loginForm.value.rememberMe) {
         this.checkRememberMe(); // Call the function to handle "Remember Me" checked state
       } else {
         this.uncheckRememberMe(); // Call the function to handle "Remember Me" unchecked state
       }
-  
+
+      setTimeout(() => {
+
       // Proceed with login
       this.authService.login(this.loginForm.value).subscribe(
         (response: { status: string; message: string; token: string }) => {
+          this.loading = false;
           if (response.status === 'success') {
             this.showSnackBar('Welcome Back!', 'success-icon');
   
@@ -85,8 +89,7 @@ export class LoginComponent implements OnInit {
             // Redirect to home page
             this.router.navigate(['/home']).then(
               () => {
-                console.log('Redirected to /home');
-  
+               
                 // Focus fix for accessibility
                 setTimeout(() => {
                   const focusTarget = document.body; // Or document.querySelector('main')
@@ -102,10 +105,12 @@ export class LoginComponent implements OnInit {
           }
         },
         (error: any) => {
+          this.loading = false;
           console.error('Error:', error);
           this.showSnackBar('Server error occurred.', 'warning-icon');
         }
-      );
+      )
+    },3000);
     } else {
       this.showSnackBar('Please enter valid credentials.','warning-icon');
     }

@@ -26,11 +26,13 @@
           <i class="fas fa-lock">&nbsp;</i>Password
         </label>
         <div style="display: flex; align-items: center;">
+          
           <input
             [type]="passwordVisible ? 'text' : 'password'"
             id="password"
             placeholder="Enter your password"
             formControlName="password"
+            
           />
           <i
             [class]="passwordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"
@@ -50,12 +52,17 @@
         </label>
         <a href="/forgotpassword" class="forgot-password">Forgot Password?</a>
       </div>
-
+      <mat-progress-bar *ngIf="loading" mode="indeterminate" color="primary"></mat-progress-bar>
+    
       <!-- Login Button -->
       <button type="submit" class="login-btn" [disabled]="loginForm.invalid">
         Login
       </button>
-     
+      <div class="signup-link">
+        <p>
+          Don't have an account? <a routerLink="/signup">Sign Up</a>
+        </p>
+      </div>
     </form>
   </div>
 </div>

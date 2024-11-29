@@ -189,4 +189,10 @@
     margin-left: 10px;
     font-size: 1.2rem;
   }
-  
+  mat-progress-bar {
+    visibility: visible !important;
+    opacity: 2 !important;
+    height: 25px !important; /* Make it bigger for easier visibility */
+    margin-top: 2px;
+    border-radius: 2px;
+  }

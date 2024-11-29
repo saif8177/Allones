@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-forgot-password',
@@ -19,7 +20,8 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router // Inject Router
   ) {}
 
   ngOnInit(): void {
@@ -110,9 +112,10 @@ export class ForgotPasswordComponent implements OnInit {
           .subscribe(
             (response: any) => {
               if (response.status === 'success') {
-                this.successMessage = 'Password reset successfully!';
                 this.showSnackBar('Password reset successful! Please login.');
-                this.step = 1;
+                setTimeout(() => {
+                  this.router.navigate(['/login']);
+                },5000);
               } else {
                 console.error('Password reset failed:', response);
                 this.showSnackBar('Password reset failed. Try again.');

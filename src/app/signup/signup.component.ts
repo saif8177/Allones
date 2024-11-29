@@ -14,6 +14,7 @@ export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
   passwordVisible: boolean = false;
   toastMessage: string = '';
+  loading: boolean = false; 
 
   constructor(private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar, private signupService: SignupService ) {}
 
@@ -60,10 +61,15 @@ export class SignupComponent implements OnInit {
   // Handle form submission
   onSubmit() {
     if (this.signupForm.valid) {
+      this.loading = true;
       const userData = this.signupForm.value;
-  
+
+      
       this.signupService.registerUser(userData).subscribe(
         (response: { status: string; message: string; token: any; }) => {
+          setTimeout(() => {
+            this.loading = false;
+          
           if (response.status === 'success') {
             this.showSnackBar(response.message,'success-icon');
             localStorage.setItem('authToken', response.token || ''); // Save token if provided
@@ -73,8 +79,10 @@ export class SignupComponent implements OnInit {
           } else {
             this.showSnackBar(response.message, 'warning-icon');
           }
+        },3000);
         },
         (error: any) => {
+          
           console.error('HTTP Error:', error);
           this.showSnackBar('Server error occurred.', 'warning-icon');
         }
