@@ -48,12 +48,12 @@ export class SignupComponent implements OnInit {
   }
 
    // Show a MatSnackBar message
-   showSnackBar(message: string) {
+   showSnackBar(message: string, icon: string = 'default') {
     this.snackBar.openFromComponent(CustomSnackBarComponent, {
-      duration: 3000, // Duration in milliseconds
-      data: { message }, // Pass the message dynamically
-      horizontalPosition: 'center', // Align horizontally
-      verticalPosition: 'top', // Align vertically
+      duration: 3000,
+      data: { message, icon },
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
     });
   }
 
@@ -65,18 +65,18 @@ export class SignupComponent implements OnInit {
       this.signupService.registerUser(userData).subscribe(
         (response: { status: string; message: string; token: any; }) => {
           if (response.status === 'success') {
-            this.showSnackBar(response.message);
+            this.showSnackBar(response.message,'success-icon');
             localStorage.setItem('authToken', response.token || ''); // Save token if provided
             setTimeout(() => {
               this.router.navigate(['/home']);
             }, 1500);
           } else {
-            this.showSnackBar(response.message);
+            this.showSnackBar(response.message, 'warning-icon');
           }
         },
         (error: any) => {
           console.error('HTTP Error:', error);
-          this.showSnackBar('Server error occurred.');
+          this.showSnackBar('Server error occurred.', 'warning-icon');
         }
       );
     } else {

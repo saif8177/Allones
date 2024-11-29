@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
       verticalPosition: 'top',
     });
   }
+  
   // Handle login form submission
   checkRememberMe() {
     const credentials = {
@@ -76,7 +77,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginForm.value).subscribe(
         (response: { status: string; message: string; token: string }) => {
           if (response.status === 'success') {
-            this.showSnackBar(response.message);
+            this.showSnackBar('Welcome Back!', 'success-icon');
   
             // Store the token
             localStorage.setItem('authToken', response.token);
@@ -97,16 +98,16 @@ export class LoginComponent implements OnInit {
               (error) => console.error('Navigation error:', error)
             );
           } else {
-            this.showSnackBar(response.message);
+            this.showSnackBar(response.message, 'warning-icon');
           }
         },
         (error: any) => {
           console.error('Error:', error);
-          this.showSnackBar('Server error occurred.');
+          this.showSnackBar('Server error occurred.', 'warning-icon');
         }
       );
     } else {
-      this.showSnackBar('Please enter valid credentials.');
+      this.showSnackBar('Please enter valid credentials.','warning-icon');
     }
   }    
 

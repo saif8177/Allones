@@ -1,4 +1,10 @@
 // Style for the toolbar
+:host {
+  --ion-background-color: #ff9e42; /* Applies the background color to the host */
+ height: 300px;/* Ensures the background covers the full height */
+ 
+}
+
 ion-toolbar {
   --ion-toolbar-height: 56px;
    
@@ -57,6 +63,7 @@ ion-toolbar {
 .offers-section {
   background: #ff9e42;
   padding: 16px;
+  border-radius: 25%;
 
   h2 {
     color: white;
@@ -66,6 +73,7 @@ ion-toolbar {
   }
 
   .offer-card {
+    border-radius: 25%;
     display: flex;
     justify-content: space-between;
     align-items: center;
