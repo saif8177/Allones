@@ -1,94 +1,178 @@
-// Style for the toolbar
-:host {
-  --ion-background-color: #ff9e42; /* Applies the background color to the host */
- height: 300px;/* Ensures the background covers the full height */
+.buttoncontainer {
+  display: flex;
+  flex-direction: column; /* Stack buttons and search bar vertically */
+  align-items: center; /* Center elements horizontally */
+  width: 100%; /* Ensure the container takes the full width */
+  background-color: #b6e5f3cc;
+}
+/* global.scss or styles.css */
+:root {
+  --ion-background-color: #ffffff;
+  --ion-text-color: #000000;
+}
+
+body.dark-theme {
+  --ion-background-color: #000000;
+  --ion-text-color: #ffffff;
+}
+
+body.light-theme {
+  --ion-background-color: #ffffff;
+  --ion-text-color: #000000;
+}
+
+
+.buttonwrapper {
+  display: flex;
+  justify-content: center; /* Center buttons horizontally */
+  gap: 20px; /* Add spacing between the buttons */
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  width: 100%; /* Match the width of the container */
+  max-width: 500px; /* Restrict width to match the search bar */
+  margin-top: 10px; /* Adjust top spacing if needed */
+}
+.searchwrapper{
+  display: flex;
+  justify-content: center; /* Center buttons horizontally */
+  padding-left: 20px;
+  padding-right: 8px;
+  width: 100%; /* Match the width of the container */
+  max-width: 500px; /* Restrict width to match the search bar */
+  margin-top: 10px; 
+}
+.searchwrapper ion-searchbar {
+  width: 100%;
+  
+  max-width: 500px;
+}
+.buttonwrapper ion-button {
+  flex: 1; /* Ensure buttons take equal space */
+  text-align: center; /* Center button content */
+}
+
+.buttoncontainer ion-searchbar {
+  margin-left: 25px;
+  width: 90%;
+  max-width: 500px; /* Match the width of the buttons */
+  
+}
+.dark{
+  align-items: center;
+  padding-top: 15px;
+}
+ 
+
+/*swap banner */
+.banner-container {
+  position: relative;
+  width: 100%;
+  height: 800px;
+  overflow: hidden;
+  max-width: 1200px;
+  overflow: hidden;
+  background-color: #f8f8f8c5;
+  overflow-y: auto; /* Enable vertical scrolling */
+  scroll-snap-type: y mandatory; /* Enable snapping for vertical scrolling */
+  -webkit-overflow-scrolling: touch; 
+}
+
+.banner-wrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+  height: 300px;
+}
+
+.banner {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    margin-bottom: 40px;
+    width: 100%;
+    height: 90%;
+    object-fit: cover;
+    padding: 10px;
+    border-radius: 20px;
+  }
+}
+
+.progress-dots {
+  position: absolute;
+  top: 273px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+.progress-dot.active {
+  width: 30px; /* Elongated active dot */
+   /* Highlighted color for the active dot */
+}
+.dot {
+  width: 12px;
+  height: 12px;
+  background-color: #ddd;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+
+  &.active {
+    background-color: #4caf50;
+  }
+}
+.scrollable-container {
+  display: flex;
+  flex-direction: column; /* Stack rows vertically */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  scroll-snap-type: x mandatory; /* Smooth snapping for horizontal scroll */
+  background-color: #f8f8f8c5;
  
 }
 
-ion-toolbar {
-  --ion-toolbar-height: 56px;
-   
-
-  ion-title {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    color: white;
-   
-
-    .location-text {
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .location-detail {
-      font-size: 12px;
-      color: #fbe7c6;
-      margin: 0;
-    }
-  }
-  ion-toolbar {
-    --background: #ff9e42;
-  }
-  
-  ion-avatar {
-    margin-left: 8px;
-    border: 2px solid #fff;
-    border-radius: 50%;
-  }
-
-  .plus-button {
-    background: white;
-    color: #ff9e42;
-    font-weight: bold;
-    border-radius: 20px;
-    height: 30px;
-    padding: 0 12px;
-  }
+.food-row {
+  background-color: #f8f8f8c5;
+  display: flex;
+  flex-direction: row; /* Make items in the row horizontal */
+   /* Space between food items in the row */
 }
 
-
-// Style for the search bar
-.search-section {
-  padding: 16px;
-  background: #ff9e42;
-
-  ion-searchbar {
-    --background: #f1f1f1;
-    --border-radius: 8px;
-  }
+.food-item {
+  flex: 0 0 auto; /* Prevent items from shrinking or growing */
+  scroll-snap-align: center; /* Snap to center of the viewport */
 }
 
-// Style for the offers section
-.offers-section {
-  background: #ff9e42;
-  padding: 16px;
-  border-radius: 25%;
-
-  h2 {
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 16px;
-  }
-
-  .offer-card {
-    border-radius: 25%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    color: #ff9e42;
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-
-    ion-icon {
-      color: #ff9e42;
-    }
-  }
+.food-item ion-card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 120px; /* Square box */
+  height: 120px; /* Square box */
+  border-radius: 10px;
+  background-color: #f8f8f8c5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
 }
 
+.food-item ion-card:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
 
+.food-item img {
+  width: 80px; /* Image inside the square */
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
 
+.food-item h3 {
+  font-size: 14px;
+  margin: 0;
+  color: #333;
+  text-align: center;
+}

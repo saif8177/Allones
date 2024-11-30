@@ -1,56 +1,58 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2  } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss']
 })
-export class HomePage implements OnInit {
-[x: string]: any;
-  categories = [
-    { name: 'Pizza', icon: 'pizza-outline' },
-    { name: 'Burger', icon: 'fast-food-outline' },
-    { name: 'Biryani', icon: 'restaurant-outline' },
-    { name: 'Cake', icon: 'cake-outline' },
-    { name: 'Rolls', icon: 'wrap-outline' },
-    { name: 'Momo', icon: 'nutrition-outline' },
-    { name: 'Chowmein', icon: 'leaf-outline' }
+export class HomePage implements OnInit, OnDestroy {
+  isDarkTheme: boolean = false; // Default to light theme
+  banners = [
+    { image: 'assets/download.jpeg', alt: 'Hotels' },
+    { image: 'assets/images2.jpeg', alt: 'Coming Soon' },
+    { image: 'assets/food.JPG', alt: 'Destination' }
   ];
+  foodCategories = [
+    { name: 'Pizza', image: 'assets/icon/pizza.png' },
+    { name: 'Burger', image: 'assets/icon/burger.png' },
+    { name: 'Biryani', image: 'assets/icon/biryani.png' },
+    { name: 'Thaliplate', image: 'assets/icon/thaliplate.png' },
+    { name: 'Roll', image: 'assets/icon/roll.png' },
+    { name: 'Momo', image: 'assets/icon/momo.png' },
+  ];
+  constructor(private renderer: Renderer2) {}
 
-  restaurants = [
-    {
-      name: 'Chowringhee',
-      cuisine: 'North Indian',
-      time: '30-35 min',
-      offer: '40% OFF up to ₹80',
-      distance: '2.5 km',
-      price: '₹250 for one',
-      rating: 4.1,
-      image: 'assets/restaurant1.jpg'
-    },
-    {
-      name: 'LunchBox - Meals and Thalis',
-      cuisine: 'North Indian',
-      time: '25-30 min',
-      offer: '40% OFF up to ₹80',
-      distance: '2.0 km',
-      price: '₹200 for one',
-      rating: 4.2,
-      image: 'assets/restaurant2.jpg'
-    },
-    {
-      name: 'Hong’s Momos',
-      cuisine: 'Chinese',
-      time: '25-30 min',
-      offer: '60% OFF up to ₹250',
-      distance: '2.5 km',
-      price: '₹250 for one',
-      rating: 4.1,
-      image: 'assets/restaurant3.jpg'
+  currentIndex: number = 0;
+  intervalId: any;
+
+  ngOnInit() {
+    this.startBannerRotation();
+    this.loadTheme();
+  }
+
+  toggleTheme(event: any) {
+    this.isDarkTheme = event.detail.checked;
+    const theme = this.isDarkTheme ? 'dark-theme' : 'light-theme';
+    this.renderer.removeClass(document.body, 'dark-theme');
+    this.renderer.removeClass(document.body, 'light-theme');
+    this.renderer.addClass(document.body, theme);
+    localStorage.setItem('theme', theme); // Save theme preference
+  }
+
+  loadTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light-theme';
+    this.isDarkTheme = savedTheme === 'dark-theme';
+    this.renderer.addClass(document.body, savedTheme);
+  }
+  startBannerRotation() {
+    this.intervalId = setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.banners.length;
+    }, 3000); // Rotate every 3 seconds
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
     }
-  ];
-
-  constructor() {}
-
-  ngOnInit() {}
+  }
 }
