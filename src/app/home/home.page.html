@@ -40,7 +40,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" id="svg5" version="1.1" viewBox="-5 -5 278 56">
           <defs>
             <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color: #f39d4c; stop-opacity: 1" />
+              <stop offset="0%" style="stop-color: #4c86f3; stop-opacity: 1" />
               <stop offset="100%" style="stop-color: #363532; stop-opacity: 1" />
             </linearGradient>
           </defs>
@@ -65,9 +65,6 @@
         
       </div>
 
-
-
-
       <div class="scrollable-container">
         <div class="food-row">
           <div class="food-item" *ngFor="let food of foodCategories">
@@ -80,7 +77,7 @@
           </div>
         </div>
         <div class="food-row">
-          <div class="food-item" *ngFor="let food of foodCategories">
+          <div class="food-item1" *ngFor="let food of foodCategories">
             <ion-card>
               <ion-card-content>
                 <img [src]="food.image" alt="{{ food.name }}" />

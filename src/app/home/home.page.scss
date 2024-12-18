@@ -2,25 +2,34 @@
   display: flex;
   position: sticky;
   z-index: 10;
-  flex-direction: column; /* Stack buttons and search bar vertically */
-  align-items: center; /* Center elements horizontally */
-  width: 100%; /* Ensure the container takes the full width */
+  flex-direction: column;
+  /* Stack buttons and search bar vertically */
+  align-items: center;
+  /* Center elements horizontally */
+  width: 100%;
+  /* Ensure the container takes the full width */
   background-color: #b6e5f3cc;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
+
 /* global.scss or styles.css */
-.host{
+.host {
   background-color: #ffff;
 }
+
 .buttoncontainer.hidden {
   transform: translateY(-100%);
   opacity: 0;
 }
+
 ion-refresher {
-  z-index: 1; /* Ensure the refresher stays on top of the banner */
+  z-index: 1;
+  /* Ensure the refresher stays on top of the banner */
 }
+
 ion-refresher-content {
-  --background: transparent; /* Make the background of the refresher transparent */
+  --background: transparent;
+  /* Make the background of the refresher transparent */
 }
 
 .buttoncontainer.visible {
@@ -36,47 +45,63 @@ body.light-theme {
 
 .buttonwrapper {
   display: flex;
-  justify-content: center; /* Center buttons horizontally */
-  gap: 20px; /* Add spacing between the buttons */
+  justify-content: center;
+  /* Center buttons horizontally */
+  gap: 20px;
+  /* Add spacing between the buttons */
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 10px;
-  width: 100%; /* Match the width of the container */
-  max-width: 500px; /* Restrict width to match the search bar */
-  margin-top: 10px; /* Adjust top spacing if needed */
+  width: 100%;
+  /* Match the width of the container */
+  max-width: 500px;
+  /* Restrict width to match the search bar */
+  margin-top: 10px;
+  /* Adjust top spacing if needed */
 }
-.searchwrapper{
+
+.searchwrapper {
   display: flex;
-  justify-content: center; /* Center buttons horizontally */
+  justify-content: center;
+  /* Center buttons horizontally */
   padding-left: 20px;
   padding-right: 8px;
-  width: 100%; /* Match the width of the container */
-  max-width: 500px; /* Restrict width to match the search bar */
-  margin-top: 10px; 
+  width: 100%;
+  /* Match the width of the container */
+  max-width: 500px;
+  /* Restrict width to match the search bar */
+  margin-top: 10px;
 }
+
 .searchwrapper ion-searchbar {
   width: 100%;
   position: sticky;
-  top: 60px; /* Adjust this value to place the search bar below the scrollable area */
+  top: 60px;
+  /* Adjust this value to place the search bar below the scrollable area */
   z-index: 9;
   max-width: 500px;
 }
+
 .buttonwrapper ion-button {
-  flex: 1; /* Ensure buttons take equal space */
-  text-align: center; /* Center button content */
+  flex: 1;
+  /* Ensure buttons take equal space */
+  text-align: center;
+  /* Center button content */
 }
 
 .buttoncontainer ion-searchbar {
   margin-left: 25px;
   width: 90%;
-  max-width: 500px; /* Match the width of the buttons */
-  
+  max-width: 500px;
+  /* Match the width of the buttons */
+
 }
-.dark{
+
+.dark {
   align-items: center;
   padding-top: 15px;
 }
- 
+
 
 /*swap banner */
 .banner-container {
@@ -86,11 +111,13 @@ body.light-theme {
   max-width: 1200px;
   overflow: hidden;
   background-color: #f8f8f8c5;
-  overflow-y: auto; /* Enable vertical scrolling */
-  scroll-snap-type: y mandatory; /* Enable snapping for vertical scrolling */
-  -webkit-overflow-scrolling: touch; 
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+  scroll-snap-type: y mandatory;
+  /* Enable snapping for vertical scrolling */
+  -webkit-overflow-scrolling: touch;
   padding: 20px;
-   
+
 }
 
 .banner-wrapper {
@@ -126,13 +153,16 @@ body.light-theme {
   gap: 8px;
   z-index: 10;
 }
+
 .progress-dot.active {
-  width: 30px; /* Elongated active dot */
-   /* Highlighted color for the active dot */
+  width: 30px;
+  /* Elongated active dot */
+  /* Highlighted color for the active dot */
 }
+
 .dot {
   margin-top: 10px;
-  
+
   width: 25px;
   height: 5px;
   background-color: #ddd;
@@ -143,53 +173,70 @@ body.light-theme {
     background-color: #4caf50;
   }
 }
+
 .scrollable-container {
   display: flex;
-  flex-direction: column; /* Stack rows vertically */
-  overflow-x: auto; /* Enable horizontal scrolling */
-  scroll-snap-type: x mandatory; /* Smooth snapping for horizontal scroll */
-  -ms-overflow-style: none; /* Hide scrollbar in IE and Edge */
-  scrollbar-width: none; 
+  flex-direction: column;
+  /* Stack rows vertically */
+  overflow-x: auto;
+  /* Enable horizontal scrolling */
+  scroll-snap-type: x mandatory;
+  /* Smooth snapping for horizontal scroll */
+  -ms-overflow-style: none;
+  /* Hide scrollbar in IE and Edge */
+  scrollbar-width: none;
 }
 
+// top caterger start //
 .food-row {
-  
   display: flex;
-  flex-direction: row; /* Make items in the row horizontal */
-   /* Space between food items in the row */
+  flex-direction: row;
+  /* Make items in the row horizontal */
 }
 
 .food-item {
-  flex: 0 0 auto; /* Prevent items from shrinking or growing */
-  scroll-snap-align: center; /* Snap to center of the viewport */
- 
+  flex: 0 0 auto;
+  /* Prevent items from shrinking or growing */
+  scroll-snap-align: center;
+  /* Snap to center of the viewport */
+  position: relative;
+  /* For positioning the line */
+  
+}
+
+.food-item:not(:last-child) {
+  border-right: 2px solid #615b5b;
+  border-bottom: 2px solid #615b5b;
+  /* Horizontal line between items */
+  
 }
 
 .food-item ion-card {
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 120px; /* Square box */
-  height: 120px; /* Square box */
-  
-  
+  width: 100px;
+  /* Square box */
+  height: 120px;
+  /* Square box */
   
   transition: transform 0.2s ease-in-out;
 }
-.food-item ion-card ion-card-content{
+
+.food-item ion-card ion-card-content {
   background-color: #f8f8f8c5;
 }
 
 .food-item ion-card:hover {
-  transform: scale(1.05); /* Slightly enlarge on hover */
+  transform: scale(1.05);
+  /* Slightly enlarge on hover */
 }
 
 .food-item img {
-  width: 80px; /* Image inside the square */
+  width: 120px;
+  /* Image inside the square */
   height: 80px;
   object-fit: cover;
- 
-  
 }
 
 .food-item h3 {
@@ -197,34 +244,96 @@ body.light-theme {
   color: #333;
   text-align: center;
 }
+//caterger end
+// secong caterger start //
 
+.food-item1 {
+  flex: 0 0 auto;
+  /* Prevent items from shrinking or growing */
+  scroll-snap-align: center;
+  /* Snap to center of the viewport */
+  position: relative;
+  /* For positioning the line */
+  
+}
+
+.food-item1:not(:last-child) {
+  border-right: 2px solid #615b5b;
+
+}
+.food-item1 ion-card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100px;
+  /* Square box */
+  height: 120px;
+  /* Square box */
+  transition: transform 0.2s ease-in-out;
+}
+
+.food-item1 ion-card ion-card-content {
+  background-color: #f8f8f8c5;
+}
+
+.food-item1 ion-card:hover {
+  transform: scale(1.05);
+  /* Slightly enlarge on hover */
+}
+
+.food-item1 img {
+  width: 120px;
+  /* Image inside the square */
+  height: 80px;
+  object-fit: cover;
+}
+
+.food-item1 h3 {
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+}
+
+// second caterger end //
 .line-container {
   display: flex;
-  align-items: center; /* Vertically align items in the center */
-  justify-content: center; /* Center the heart horizontally */
+  align-items: center;
+  /* Vertically align items in the center */
+  justify-content: center;
+  /* Center the heart horizontally */
   position: relative;
-  width: 100%; /* Full-width container */
+  width: 100%;
+  /* Full-width container */
 }
 
 .line {
-  flex: 1; /* Makes the line extend fully on each side */
-  height: 2px; /* Line thickness */
-  background-color: #615b5b; /* Line color */
+  flex: 1;
+  /* Makes the line extend fully on each side */
+  height: 2px;
+  /* Line thickness */
+  background-color: #615b5b;
+  /* Line color */
 }
 
 .heart {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px; /* Adjust size of the heart container */
+  width: 40px;
+  /* Adjust size of the heart container */
   height: 40px;
-  border-radius: 50%; /* Make it a circle */
-  background-color: #f06292; /* Background color for heart container */
-  margin: 0 10px; /* Space between the heart and the lines */
+  border-radius: 50%;
+  /* Make it a circle */
+  background-color: #f06292;
+  /* Background color for heart container */
+  margin: 0 10px;
+  /* Space between the heart and the lines */
 
   ion-icon {
-    color: #fff; /* Heart icon color */
-    font-size: 20px; /* Adjust heart size */
+    color: #fff;
+    /* Heart icon color */
+    font-size: 20px;
+    /* Adjust heart size */
   }
 }
 
@@ -251,7 +360,8 @@ body.light-theme {
       height: 100%;
       background-color: #4caf50;
       animation: draw-line 2s linear forwards;
-      animation-delay: var(--delay, 0s); /* Use delay variable for control */
+      animation-delay: var(--delay, 0s);
+      /* Use delay variable for control */
     }
   }
 
@@ -268,7 +378,8 @@ body.light-theme {
     opacity: 0;
     transform: scale(0.5);
     animation: heart-pulse 2s linear forwards;
-    animation-delay: 1s; /* Starts after the line reaches the middle */
+    animation-delay: 1s;
+    /* Starts after the line reaches the middle */
 
     ion-icon {
       color: #fff;
@@ -282,9 +393,11 @@ body.light-theme {
   0% {
     width: 0;
   }
+
   50% {
     width: 100%;
   }
+
   100% {
     width: 100%;
   }
@@ -295,10 +408,12 @@ body.light-theme {
     opacity: 0;
     transform: scale(0.5);
   }
+
   50% {
     opacity: 1;
     transform: scale(1.2);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -312,9 +427,10 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 svg #line {
   fill: none;
-  stroke: url(#gradient1); 
+  stroke: url(#gradient1);
   stroke-width: 1.5;
   stroke-linecap: butt;
   stroke-linejoin: round;
@@ -325,6 +441,7 @@ svg #line {
   stroke-dashoffset: 1;
   animation: dash 3s linear infinite;
 }
+
 svg #point {
   fill: none;
   stroke: #4ad145;
@@ -342,9 +459,11 @@ svg #point {
   0% {
     stroke-dashoffset: 1;
   }
+
   80% {
     stroke-dashoffset: 0;
   }
+
   100% {
     stroke-dashoffset: 0;
   }
