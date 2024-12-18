@@ -12,6 +12,16 @@ section {
     background-color: hsl(0, 42%, 86%);
     /* Add other styles if needed */
   }
+  [inert] {
+    pointer-events: none; /* Disable interactions */
+    user-select: none;    /* Disable text selection */
+    opacity: 0.5;         /* Optional: Indicate inactive state visually */
+  }
+  
+  [aria-hidden="true"] {
+    display: none; /* Completely hide elements if aria-hidden is true */
+  }
+  
   
   .curve {
     position: absolute;

@@ -1,24 +1,35 @@
 .buttoncontainer {
   display: flex;
+  position: sticky;
+  z-index: 10;
   flex-direction: column; /* Stack buttons and search bar vertically */
   align-items: center; /* Center elements horizontally */
   width: 100%; /* Ensure the container takes the full width */
   background-color: #b6e5f3cc;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 /* global.scss or styles.css */
-:root {
-  --ion-background-color: #ffffff;
-  --ion-text-color: #000000;
+
+
+.buttoncontainer.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+ion-refresher {
+  z-index: 1; /* Ensure the refresher stays on top of the banner */
+}
+ion-refresher-content {
+  --background: transparent; /* Make the background of the refresher transparent */
 }
 
-body.dark-theme {
-  --ion-background-color: #000000;
-  --ion-text-color: #ffffff;
+.buttoncontainer.visible {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 body.light-theme {
   --ion-background-color: #ffffff;
-  --ion-text-color: #000000;
+  --ion-text-color: #ffff;
 }
 
 
@@ -44,7 +55,9 @@ body.light-theme {
 }
 .searchwrapper ion-searchbar {
   width: 100%;
-  
+  position: sticky;
+  top: 60px; /* Adjust this value to place the search bar below the scrollable area */
+  z-index: 9;
   max-width: 500px;
 }
 .buttonwrapper ion-button {
@@ -69,20 +82,22 @@ body.light-theme {
   position: relative;
   width: 100%;
   height: 800px;
-  overflow: hidden;
   max-width: 1200px;
   overflow: hidden;
   background-color: #f8f8f8c5;
   overflow-y: auto; /* Enable vertical scrolling */
   scroll-snap-type: y mandatory; /* Enable snapping for vertical scrolling */
   -webkit-overflow-scrolling: touch; 
+  padding: 20px;
+   
 }
 
 .banner-wrapper {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  width: 100%;
+  width: calc(100% + 40px);
   height: 300px;
+  margin-left: -20px;
 }
 
 .banner {
@@ -92,7 +107,7 @@ body.light-theme {
   align-items: center;
 
   img {
-    margin-bottom: 40px;
+    margin-bottom: 60px;
     width: 100%;
     height: 90%;
     object-fit: cover;
@@ -115,8 +130,10 @@ body.light-theme {
    /* Highlighted color for the active dot */
 }
 .dot {
-  width: 12px;
-  height: 12px;
+  margin-top: 10px;
+  
+  width: 25px;
+  height: 5px;
   background-color: #ddd;
   border-radius: 50%;
   transition: background-color 0.3s ease;
@@ -130,12 +147,12 @@ body.light-theme {
   flex-direction: column; /* Stack rows vertically */
   overflow-x: auto; /* Enable horizontal scrolling */
   scroll-snap-type: x mandatory; /* Smooth snapping for horizontal scroll */
-  background-color: #f8f8f8c5;
- 
+  -ms-overflow-style: none; /* Hide scrollbar in IE and Edge */
+  scrollbar-width: none; 
 }
 
 .food-row {
-  background-color: #f8f8f8c5;
+  
   display: flex;
   flex-direction: row; /* Make items in the row horizontal */
    /* Space between food items in the row */
@@ -144,6 +161,7 @@ body.light-theme {
 .food-item {
   flex: 0 0 auto; /* Prevent items from shrinking or growing */
   scroll-snap-align: center; /* Snap to center of the viewport */
+ 
 }
 
 .food-item ion-card {
@@ -152,10 +170,13 @@ body.light-theme {
   flex-direction: column;
   width: 120px; /* Square box */
   height: 120px; /* Square box */
-  border-radius: 10px;
-  background-color: #f8f8f8c5;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  
+  
   transition: transform 0.2s ease-in-out;
+}
+.food-item ion-card ion-card-content{
+  background-color: #f8f8f8c5;
 }
 
 .food-item ion-card:hover {
@@ -166,13 +187,12 @@ body.light-theme {
   width: 80px; /* Image inside the square */
   height: 80px;
   object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 5px;
+ 
+  
 }
 
 .food-item h3 {
   font-size: 14px;
-  margin: 0;
   color: #333;
   text-align: center;
 }

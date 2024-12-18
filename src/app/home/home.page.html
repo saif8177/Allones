@@ -1,66 +1,106 @@
-<div class="handly">
-  <div class="buttoncontainer">
-    <div class="buttonwrapper">
-      <ion-button class="Hotels">
-        <ion-icon slot="start" name="star"></ion-icon>
-        Hotels
-      </ion-button>
-      <ion-button class="comingsoon">
-        <ion-icon slot="start" name="star"></ion-icon>
-        Coming Soon
-      </ion-button>
-    </div>
-    <div class="searchwrapper">
-      <ion-toggle
-        class="dark"
-        aria-label="Toggle theme"
-        color="medium"
-        [checked]="isDarkTheme"
-        (ionChange)="toggleTheme($event)"
-      ></ion-toggle>
-      <ion-searchbar show-clear-button="always"></ion-searchbar>
-    </div>
-  </div>
-  <div class="banner-container">
-    <!-- Banner Wrapper -->
-    <div
-      class="banner-wrapper"
-      [style.transform]="'translateX(-' + currentIndex * 100 + '%)'"
-    >
-      <div class="banner" *ngFor="let banner of banners">
-        <img [src]="banner.image" alt="{{ banner.alt }}" />
+<ion-content (ionScroll)="handleScroll($event)">
+  <div class="handly">
+    <div class="buttoncontainer" [class.hidden]="isSearchHidden" [class.visible]="!isSearchHidden">
+      <div class="buttonwrapper">
+        <ion-button class="Hotels">
+          <ion-icon slot="start" name="star"></ion-icon>
+          Hotels
+        </ion-button>
+        <ion-button class="comingsoon">
+          <ion-icon slot="start" name="star"></ion-icon>
+          Coming Soon
+        </ion-button>
+      </div>
+      <div class="searchwrapper">
+        <ion-toggle class="dark" aria-label="Toggle theme" color="medium" [checked]="isDarkTheme"
+          (ionChange)="toggleTheme($event)"></ion-toggle>
+        <ion-searchbar show-clear-button="always"></ion-searchbar>
       </div>
     </div>
-    <!-- Progress Dots -->
-    <div class="progress-dots">
-      <div
-        *ngFor="let dot of banners; let i = index"
-        class="dot"
-        [class.active]="i === currentIndex"
-      ></div>
-    </div>
-    <div class="scrollable-container">
-      <div class="food-row">
-        <div class="food-item" *ngFor="let food of foodCategories">
-          <ion-card>
-            <ion-card-content>
-              <img [src]="food.image" alt="{{ food.name }}" />
-              <h3>{{ food.name }}</h3>
-            </ion-card-content>
-          </ion-card>
+
+
+
+    <div class="banner-container">
+      <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+        <ion-refresher-content pullingIcon="chevron-down-circle-outline"
+          refreshingSpinner="crescent"></ion-refresher-content>
+      </ion-refresher>
+      <!-- Banner Wrapper -->
+      <div class="banner-wrapper" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+        <div class="banner" *ngFor="let banner of banners">
+          <img [src]="banner.image" alt="{{ banner.alt }}" />
         </div>
       </div>
-      <div class="food-row">
-        <div class="food-item" *ngFor="let food of foodCategories">
-          <ion-card>
-            <ion-card-content>
-              <img [src]="food.image" alt="{{ food.name }}" />
-              <h3>{{ food.name }}</h3>
-            </ion-card-content>
-          </ion-card>
+      <!-- Progress Dots -->
+      <div class="progress-dots">
+        <div *ngFor="let dot of banners; let i = index" class="dot" [class.active]="i === currentIndex"></div>
+      </div>
+      <div class="scrollable-container">
+        <div class="food-row">
+          <div class="food-item" *ngFor="let food of foodCategories">
+            <ion-card>
+              <ion-card-content>
+                <img [src]="food.image" alt="{{ food.name }}" />
+                <h3>{{ food.name }}</h3>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </div>
+        <div class="food-row">
+          <div class="food-item" *ngFor="let food of foodCategories">
+            <ion-card>
+              <ion-card-content>
+                <img [src]="food.image" alt="{{ food.name }}" />
+                <h3>{{ food.name }}</h3>
+              </ion-card-content>
+            </ion-card>
+          </div>
         </div>
       </div>
+      
     </div>
+
+    
+    <div class="banner-container">
+      <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+        <ion-refresher-content pullingIcon="chevron-down-circle-outline"
+          refreshingSpinner="crescent"></ion-refresher-content>
+      </ion-refresher>
+      <!-- Banner Wrapper -->
+      <div class="banner-wrapper" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+        <div class="banner" *ngFor="let banner of banners">
+          <img [src]="banner.image" alt="{{ banner.alt }}" />
+        </div>
+      </div>
+      <!-- Progress Dots -->
+      <div class="progress-dots">
+        <div *ngFor="let dot of banners; let i = index" class="dot" [class.active]="i === currentIndex"></div>
+      </div>
+      <div class="scrollable-container">
+        <div class="food-row">
+          <div class="food-item" *ngFor="let food of foodCategories">
+            <ion-card>
+              <ion-card-content>
+                <img [src]="food.image" alt="{{ food.name }}" />
+                <h3>{{ food.name }}</h3>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </div>
+        <div class="food-row">
+          <div class="food-item" *ngFor="let food of foodCategories">
+            <ion-card>
+              <ion-card-content>
+                <img [src]="food.image" alt="{{ food.name }}" />
+                <h3>{{ food.name }}</h3>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
   </div>
-  
-</div>
+
+</ion-content>

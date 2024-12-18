@@ -15,12 +15,13 @@ import { CustomSnackBarComponent } from './custom-snack-bar/custom-snack-bar.com
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { MatProgressBarModule } from '@angular/material/progress-bar'; // Import Progress Bar Module
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'; // Import Progress Bar Module
 
 @NgModule({
   declarations: [AppComponent, SignupComponent, WelcomeComponent, LoginComponent, CustomSnackBarComponent, ForgotPasswordComponent],
   imports: [MatProgressBarModule, MatSnackBarModule,HttpClientModule, IonicModule,MatIconModule, BrowserModule, FormsModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, BrowserAnimationsModule, ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

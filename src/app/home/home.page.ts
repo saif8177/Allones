@@ -24,12 +24,24 @@ export class HomePage implements OnInit, OnDestroy {
 
   currentIndex: number = 0;
   intervalId: any;
+  isSearchHidden = false; // Tracks visibility of search bar and buttons
+  lastScrollY = 0;
 
   ngOnInit() {
     this.startBannerRotation();
     this.loadTheme();
   }
 
+  handleRefresh(event: any) {
+   
+  
+    // Simulate a network request or data update
+    setTimeout(() => {
+      
+      event.target.complete(); // Stop the refresher once done
+    }, 2000); // Simulate 2 seconds of refresh time
+  }
+  
   toggleTheme(event: any) {
     this.isDarkTheme = event.detail.checked;
     const theme = this.isDarkTheme ? 'dark-theme' : 'light-theme';
@@ -49,10 +61,28 @@ export class HomePage implements OnInit, OnDestroy {
       this.currentIndex = (this.currentIndex + 1) % this.banners.length;
     }, 3000); // Rotate every 3 seconds
   }
+  
 
   ngOnDestroy() {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
   }
+  
+  handleScroll(event: any) {
+    const scrollY = event.detail.scrollTop;
+  
+    // Determine scroll direction
+    if (scrollY > this.lastScrollY) {
+      // Scrolling down, hide the buttons
+      this.isSearchHidden = true;
+    } else {
+      // Scrolling up, show the buttons
+      this.isSearchHidden = false;
+    }
+  
+    // Update the last scroll position
+    this.lastScrollY = scrollY;
+  }
+  
 }

@@ -1,16 +1,16 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" [attr.aria-hidden]="isHidden ? 'true' : null">
   <div class="home">
     <section>
-      <!-- content here -->
+      <!-- Content here -->
       <div class="curve"></div>
     </section>
-    </div> 
+  </div>
 </ion-header>
-<div class="bubble">
-</div>
+
+<div class="bubble"></div>
 
 <!-- Ovoid Styled AllOnes -->
-<div class="ovoid-container">
+<div class="ovoid-container" [attr.inert]="isHidden ? '' : null">
   <div class="ovoid-shape">
     <span class="text-style">AllOnes</span>
   </div>
@@ -19,9 +19,22 @@
 <div class="welcome-container">
   <h1 class="welcome-text">Welcome!</h1>
   <div class="button-container">
-    <ion-button class="custom-btn btn-create" shape="round" fill="outline" (click)="navigateTo('signup')">Create Account</ion-button>
-    <ion-button class="custom-btn btn-login" shape="round" (click)="navigateTo('login')">Login</ion-button>
+    <ion-button
+      class="custom-btn btn-create"
+      shape="round"
+      fill="outline"
+      (click)="navigateTo('signup')"
+      [disabled]="isHidden"
+    >
+      Create Account
+    </ion-button>
+    <ion-button
+      class="custom-btn btn-login"
+      shape="round"
+      (click)="navigateTo('login')"
+      [disabled]="isHidden"
+    >
+      Login
+    </ion-button>
   </div>
 </div>
-
-
