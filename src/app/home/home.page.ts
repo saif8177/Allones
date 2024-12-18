@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Renderer2  } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, ViewChild  } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -6,6 +6,7 @@ import { Component, OnInit, OnDestroy, Renderer2  } from '@angular/core';
   styleUrls: ['./home.page.scss']
 })
 export class HomePage implements OnInit, OnDestroy {
+  
   isDarkTheme: boolean = false; // Default to light theme
   banners = [
     { image: 'assets/download.jpeg', alt: 'Hotels' },

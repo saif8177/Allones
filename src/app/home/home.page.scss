@@ -9,8 +9,9 @@
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 /* global.scss or styles.css */
-
-
+.host{
+  background-color: #ffff;
+}
 .buttoncontainer.hidden {
   transform: translateY(-100%);
   opacity: 0;
@@ -195,4 +196,156 @@ body.light-theme {
   font-size: 14px;
   color: #333;
   text-align: center;
+}
+
+.line-container {
+  display: flex;
+  align-items: center; /* Vertically align items in the center */
+  justify-content: center; /* Center the heart horizontally */
+  position: relative;
+  width: 100%; /* Full-width container */
+}
+
+.line {
+  flex: 1; /* Makes the line extend fully on each side */
+  height: 2px; /* Line thickness */
+  background-color: #615b5b; /* Line color */
+}
+
+.heart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px; /* Adjust size of the heart container */
+  height: 40px;
+  border-radius: 50%; /* Make it a circle */
+  background-color: #f06292; /* Background color for heart container */
+  margin: 0 10px; /* Space between the heart and the lines */
+
+  ion-icon {
+    color: #fff; /* Heart icon color */
+    font-size: 20px; /* Adjust heart size */
+  }
+}
+
+/* animated heart*/
+.animated-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 50px;
+
+  .line {
+    position: relative;
+    height: 2px;
+    background-color: #ccc;
+    flex: 1;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 100%;
+      background-color: #4caf50;
+      animation: draw-line 2s linear forwards;
+      animation-delay: var(--delay, 0s); /* Use delay variable for control */
+    }
+  }
+
+  .heart {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f06292;
+    margin: 0 10px;
+    opacity: 0;
+    transform: scale(0.5);
+    animation: heart-pulse 2s linear forwards;
+    animation-delay: 1s; /* Starts after the line reaches the middle */
+
+    ion-icon {
+      color: #fff;
+      font-size: 20px;
+    }
+  }
+}
+
+/* Keyframes */
+@keyframes draw-line {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes heart-pulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* topic heart ani*/
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+svg #line {
+  fill: none;
+  stroke: url(#gradient1); 
+  stroke-width: 1.5;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  stroke-miterlimit: 4;
+
+  stroke-opacity: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: dash 3s linear infinite;
+}
+svg #point {
+  fill: none;
+  stroke: #4ad145;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: .1;
+  stroke-opacity: 1;
+  stroke-dasharray: .0001, .9999;
+  stroke-dashoffset: 1;
+  animation: dash 3s linear infinite;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  80% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
