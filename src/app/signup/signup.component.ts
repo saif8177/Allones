@@ -72,6 +72,11 @@ export class SignupComponent implements OnInit {
           
           if (response.status === 'success') {
             this.showSnackBar(response.message,'success-icon');
+             // Store user details in local storage
+             localStorage.setItem('user', JSON.stringify({
+              fullName: userData.fullName,
+              email: userData.email
+            }));
             localStorage.setItem('authToken', response.token || ''); // Save token if provided
             setTimeout(() => {
               this.router.navigate(['/home']);

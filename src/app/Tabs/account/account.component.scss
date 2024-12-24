@@ -1,0 +1,9 @@
+ion-card-content div {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  ion-card-content div ion-button {
+    flex: 1;
+  }
+  

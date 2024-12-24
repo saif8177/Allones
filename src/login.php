@@ -6,7 +6,6 @@ header("Content-Type: application/json");
 require 'vendor/autoload.php'; // Include JWT library (Firebase PHP-JWT)
 
 use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 
 $secret_key = "your_secret_key"; // Replace with a strong secret key
 $conn = new mysqli("localhost", "root", "", "signup_db");
@@ -40,7 +39,12 @@ if (isset($data['email'], $data['password'])) {
             echo json_encode([
                 "status" => "success",
                 "message" => "Login successful.",
-                "token" => $token
+                "token" => $token,
+                "user" => [
+                    "id" => $user['id'],
+                    "fullName" => $user['full_name'],
+                    "email" => $user['email']
+                ]
             ]);
         } else {
             echo json_encode(["status" => "error", "message" => "Invalid email or password."]);

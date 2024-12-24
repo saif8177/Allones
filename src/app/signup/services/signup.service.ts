@@ -13,4 +13,7 @@ export class SignupService {
   registerUser(userData: any): Observable<any> {
     return this.http.post(this.apiUrl, userData);
   }
+  getUserDetails(): any {
+    return JSON.parse(localStorage.getItem('user') || 'null');
+  }
 }

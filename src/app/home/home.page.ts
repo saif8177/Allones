@@ -85,5 +85,7 @@ export class HomePage implements OnInit, OnDestroy {
     // Update the last scroll position
     this.lastScrollY = scrollY;
   }
+
+  
   
 }

@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Profile Picture</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <img *ngIf="user?.profilePicture" [src]="user.profilePicture" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 10px;">
+    <input type="file" (change)="uploadProfilePicture($event)" accept="image/*" />
+  </ion-card-content>
+</ion-card>
+
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>User Details</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="!isEditing">
+      <p><strong>Name:</strong> {{ user?.name }}</p>
+      <p><strong>Email:</strong> {{ user?.email }}</p>
+      <ion-button expand="block" (click)="enableEditing()">Edit Profile</ion-button>
+    </ion-card-content>
+
+    <ion-card-content *ngIf="isEditing">
+      <ion-item>
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input [(ngModel)]="updatedName"></ion-input>
+      </ion-item>
+      <ion-button expand="block" (click)="updateProfile()">Update</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Actions</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div style="display: flex; gap: 10px;">
+        <ion-button expand="block" style="flex: 1;">Orders</ion-button>
+        <ion-button expand="block" style="flex: 1;">Wishlist</ion-button>
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: 10px;">
+        <ion-button expand="block" style="flex: 1;">Coupons</ion-button>
+        <ion-button expand="block" style="flex: 1;">Help Center</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="full" color="danger" (click)="logout()">Log Out</ion-button>
+</ion-content>
