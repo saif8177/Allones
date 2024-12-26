@@ -9,7 +9,7 @@ export class RestaurantsListComponent {
   restaurantList = [
     {
       name: 'Bustling Food Stall',
-      image: 'https://stockcake.com/i/bustling-food-stall_1261193_917827.jpg',
+      image: 'https://via.placeholder.com/300x200.png?text=Cafe+Mocha+Bliss',
       rating: 4.5
     },
     {

@@ -19,10 +19,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'; // Import Progress Bar Module
 import { AccountComponent } from './Tabs/account/account.component';
 import { CartComponent } from './Tabs/cart/cart.component';
+import { SharedModule } from "./Tabs/shared.module";
 
 @NgModule({
   declarations: [AppComponent, CartComponent, AccountComponent,SignupComponent, WelcomeComponent, LoginComponent, CustomSnackBarComponent, ForgotPasswordComponent],
-  imports: [MatProgressBarModule, MatSnackBarModule,HttpClientModule, IonicModule,MatIconModule, BrowserModule, FormsModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, BrowserAnimationsModule, ],
+  imports: [MatProgressBarModule, MatSnackBarModule, HttpClientModule, IonicModule, MatIconModule, BrowserModule, FormsModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, BrowserAnimationsModule, SharedModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })

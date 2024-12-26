@@ -6,6 +6,8 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { RestaurantsListComponent } from './restaurants/restaurants-list/restaurants-list.component';
 import { MenuTabsComponent } from '../Tabs/menu-tabs/menu-tabs.component';
+import { SharedModule } from '../Tabs/shared.module';
+
 
 @NgModule({
   imports: [
@@ -13,8 +15,9 @@ import { MenuTabsComponent } from '../Tabs/menu-tabs/menu-tabs.component';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
+    SharedModule,
     
   ],
-  declarations: [HomePage, MenuTabsComponent, RestaurantsListComponent, ],
+  declarations: [HomePage, RestaurantsListComponent, ],
 })
 export class HomePageModule {}

@@ -7,7 +7,7 @@ ion-tabs {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: var(--background);
+    background-color: #f8f8f8c5;
     border-top: 1px solid #ddd;
 
     ion-tab-button {
@@ -29,3 +29,12 @@ ion-tabs {
     }
   }
 }
+::ng-deep ion-tab-button span.button-inner {
+  background-color: #f8f8f8c5 !important; /* Apply your desired background color */
+  border-radius: 5px; /* Optional: Add rounded corners if necessary */
+}
+
+ion-tab-bar {
+  --background: transparent; /* Prevent overriding with default tab-bar background */
+}
+

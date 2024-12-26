@@ -1,0 +1,10 @@
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10; /* Adjust if necessary to ensure it stays above other elements */
+    background-color: #f8f8f8; /* Background color of the footer */
+    border-top: 1px solid #ddd; /* Optional: a border to separate it visually */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow effect */
+  }

@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
+  [x: string]: any;
   private loginUrl = 'http://localhost/login.php'; // Login API
   private updateUrl = 'http://localhost/update_profile.php'; // Update Profile API
   private userSubject = new BehaviorSubject<any>(null);
@@ -46,6 +47,12 @@ export class AuthService {
     const uploadUrl = 'http://localhost/upload_profile_picture.php'; // Backend endpoint
     return this.http.post(uploadUrl, formData);
   }
+
+  deleteProfilePicture(data: { email: string }): Observable<any> {
+    const deleteUrl = 'http://localhost/delete_profile_picture.php'; // Backend endpoint
+    return this.http.post(deleteUrl, data);
+  }
+  
   
  // Update Profile
 updateProfile(data: { email: string; fullName: string }): Observable<any> {
