@@ -20,6 +20,7 @@ ion-tabs {
       }
 
       span {
+        
         font-size: 12px;
       }
 
@@ -35,6 +36,17 @@ ion-tabs {
 }
 
 ion-tab-bar {
-  --background: transparent; /* Prevent overriding with default tab-bar background */
+  background-color: #f8f8f8c5 !important;
+ /* Prevent overriding with default tab-bar background */
+}
+
+span.button-inner {
+  background-color: #f8f8f8c5; /* Replace with your desired color */
+  color: #ffffff; /* Adjust text color for contrast */
+  padding: 4px 8px; /* Optional: Add padding */
+  border-radius: 4px; /* Optional: Add rounded corners */
+}
+.parent-class span.button-inner {
+  background-color: #e74c3c; /* Replace with your desired color */
 }
 

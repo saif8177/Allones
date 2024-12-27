@@ -71,5 +71,8 @@ updateProfile(data: { email: string; fullName: string }): Observable<any> {
 getUserObservable(): Observable<any> {
   return this.userSubject.asObservable();
 }
-
+retrieveUserProfile(email: string): Observable<any> {
+  const retrieveUrl = 'http://localhost/retrieve_profile.php'; // Backend endpoint
+  return this.http.post(retrieveUrl, { email });
+}
 }

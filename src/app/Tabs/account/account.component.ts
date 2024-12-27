@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController, LoadingController } from '@ionic/angular';
 import { AuthService } from 'src/app/login/services/auth.service';
@@ -20,36 +20,56 @@ export class AccountComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private toastController: ToastController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private cdr: ChangeDetectorRef // For UI updates
   ) {}
 
   ngOnInit(): void {
     this.loadUserData();
   }
 
-  loadUserData() {
-    // Fetch from localStorage
-    const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
-    if (storedUser?.email) {
-      this.user = {
-        name: storedUser.fullName || '',
-        email: storedUser.email || '',
-        profilePicture: storedUser.profilePicture || null,
-      };
-    }
 
-    // Subscribe to AuthService updates
+  loadUserData() {
+    const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+  
+    if (storedUser && storedUser.email) {
+      // Retrieve user details from the backend
+      this.authService.retrieveUserProfile(storedUser.email).subscribe(
+        (response: any) => {
+          if (response.status === 'success') {
+            this.user = {
+              name: response.user.fullName || '',
+              email: storedUser.email,
+              profilePicture: response.user.profilePicture || null, // Already a full URL
+            };
+            localStorage.setItem('user', JSON.stringify(this.user)); // Update local storage
+            this.cdr.detectChanges(); // Update UI
+          } else {
+            console.error('Failed to load user profile:', response.message);
+          }
+        },
+        (error) => {
+          console.error('Error retrieving user profile:', error);
+        }
+      );
+    }
+  
+    // Subscribe to user observable for dynamic updates
     this.authService.getUserObservable().subscribe((user) => {
       if (user) {
         this.user = {
           name: user.fullName || '',
-          email: user.email || '',
-          profilePicture: user.profilePicture || null,
+          email: user.email,
+          profilePicture: user.profilePicture || null, // Already a full URL
         };
-        localStorage.setItem('user', JSON.stringify(this.user)); // Persist user data
+  
+        localStorage.setItem('user', JSON.stringify(this.user));
+        this.cdr.detectChanges(); // Update UI
       }
     });
   }
+  
+    
 
   enableEditing() {
     this.isEditing = true;
@@ -81,35 +101,50 @@ export class AccountComponent implements OnInit {
       await this.showToast('No file selected.', 'danger');
       return;
     }
-
+  
     const formData = new FormData();
-    formData.append('profilePicture', this.selectedFile);
+    const renamedFile = new File(
+      [this.selectedFile],
+      `${this.user.name.replace(/\s+/g, '_')}_${this.selectedFile.name}`,
+      { type: this.selectedFile.type }
+    );
+    formData.append('profilePicture', renamedFile);
     formData.append('email', this.user.email);
-
+  
     const loader = await this.loadingController.create({
       message: 'Uploading...',
       spinner: 'crescent',
       backdropDismiss: false,
     });
+  
     await loader.present();
-
+  
     this.authService.uploadProfilePicture(formData).subscribe(
       async (response: any) => {
-        await loader.dismiss();
         if (response.status === 'success') {
-          this.user.profilePicture = response.filePath;
-          localStorage.setItem('user', JSON.stringify(this.user)); // Persist updated profile picture
-          this.selectedFile = null; // Reset file after successful upload
-          this.isPreviewVisible = false; // Close preview modal
+          // Ensure the full URL is only prepended if necessary
+          const imageUrl = response.filePath.startsWith('http')
+            ? response.filePath
+            : `http://localhost/uploads/${response.filePath}`;
+
+          this.user.profilePicture = imageUrl;
+          localStorage.setItem('user', JSON.stringify(this.user));
+          this.selectedFile = null;
+          this.isPreviewVisible = false;
           await this.showToast('Profile picture updated successfully.', 'success');
         } else {
           await this.showToast(response.message || 'Upload failed.', 'danger');
         }
+        const focusableElement = document.querySelector('#main-content');
+        if (focusableElement instanceof HTMLElement) {
+          focusableElement.focus();
+        }
+        await loader.dismiss();
       },
       async (error) => {
-        await loader.dismiss();
         await this.showToast('Failed to upload profile picture.', 'danger');
         console.error('Upload error:', error);
+        await loader.dismiss();
       }
     );
   }
@@ -120,23 +155,28 @@ export class AccountComponent implements OnInit {
       spinner: 'crescent',
       backdropDismiss: false,
     });
+  
     await loader.present();
-
+  
     this.authService.deleteProfilePicture({ email: this.user?.email }).subscribe(
       async (response: any) => {
-        await loader.dismiss();
         if (response.status === 'success') {
-          this.user.profilePicture = null; // Clear profile picture
-          localStorage.setItem('user', JSON.stringify(this.user)); // Persist changes
+          this.user.profilePicture = null;
+          localStorage.setItem('user', JSON.stringify(this.user));
           await this.showToast('Profile picture deleted successfully.', 'success');
         } else {
           await this.showToast(response?.message || 'Unknown error.', 'danger');
         }
+        const focusableElement = document.querySelector('#main-content'); 
+        if (focusableElement instanceof HTMLElement) {
+          focusableElement.focus();
+        }
+        await loader.dismiss();
       },
       async (error) => {
-        await loader.dismiss();
         await this.showToast('Failed to delete profile picture.', 'danger');
         console.error('Error deleting profile picture:', error);
+        await loader.dismiss();
       }
     );
   }
@@ -147,8 +187,9 @@ export class AccountComponent implements OnInit {
       async (response: any) => {
         if (response.status === 'success') {
           this.user.name = this.updatedName;
-          localStorage.setItem('user', JSON.stringify(this.user)); // Persist updated name
+          localStorage.setItem('user', JSON.stringify(this.user));
           this.isEditing = false;
+          this.cdr.detectChanges(); // Update UI
           await this.showToast('Profile updated successfully.', 'success');
         } else {
           await this.showToast(response.message || 'Failed to update profile.', 'danger');

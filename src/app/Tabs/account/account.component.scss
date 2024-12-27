@@ -1,7 +1,7 @@
 ion-content {
   padding: 0; /* Remove padding from the content */
   margin: 0;  /* Remove margin from the content */
-  height: calc(100vh - 100px); /* Adjust content height to fit above the footer */
+  height: calc(100vh - 50px); /* Adjust content height to fit above the footer */
   overflow: hidden; /* Disable scrolling */
   position: relative;
   
@@ -9,7 +9,7 @@ ion-content {
 
 ion-card {
   
-  margin: 10px; /* Add some margin between the cards */
+  margin: 20px; /* Add some margin between the cards */
   padding: 10px; /* Padding inside cards */
 }
 :host {
@@ -37,11 +37,11 @@ ion-card-title {
 
 ion-card.ios.hydrated {
   background-color: #f8f8f848 !important; /* Change to your desired color */
+ 
 }
 
 
 ion-card-content {
-  
   padding: 10px; /* Padding inside the card content */
 }
 
