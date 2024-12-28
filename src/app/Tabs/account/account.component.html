@@ -1,47 +1,90 @@
-<ion-content class="no-scroll" id="main-content" tabindex="-1" >
+<ion-content class="no-scroll" id="main-content" tabindex="-1">
   <!-- Profile Picture Container -->
-<div style="position: relative; width: 100px; height: 100px; margin: auto">
-  <img
-    *ngIf="user?.profilePicture"
-    [src]="user.profilePicture"
-    alt="Profile Picture"
-    style="width: 100%; margin-top: 5px; height: 100%; border: 3px solid #1ae8f7; border-radius: 50%; object-fit: cover"
-  />
-  <!-- Replace + icon with pencil icon -->
-  <div
-    style="
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      border-radius: 50%;
-      background-color: #ffcc00; /* Background color for the circle */
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
-      cursor: pointer;
-    "
-    (click)="openImagePreview()"
-  >
-    <ion-icon name="pencil" style="font-size: 18px; color: white;"></ion-icon>
-  </div>
-</div>
+  <div class="imageplace" >
+    <img
+      *ngIf="user?.profilePicture"
+      [src]="user.profilePicture"
+      alt="Profile Picture"
+      style="
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      "
+    />
+    <!-- Replace + icon with pencil icon -->
 
-
- <!-- Image Preview and Edit Modal (hidden by default) -->
-<div *ngIf="isPreviewVisible" class="image-preview-modal">
-  <div class="image-preview-container">
-    <img [src]="previewImage" alt="Preview" class="circle-crop-preview" />
-    <div style="margin-top: 15px; display: flex; justify-content: space-between;">
-      <ion-button color="primary" (click)="saveProfilePicture()">Save</ion-button>
-      <ion-button color="danger" (click)="deleteProfilePicture()">Delete</ion-button>
-      <ion-button color="medium" (click)="isPreviewVisible = false" style="position: absolute; top: 5px; right: 5px;">X</ion-button>
+    <div
+      style="
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        border-radius: 50%;
+        background-color: #ffcc00; /* Background color for the circle */
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+        cursor: pointer;
+      "
+      (click)="toggleOptions()"
+    >
+      <ion-icon name="pencil" style="font-size: 18px; color: white"></ion-icon>
     </div>
   </div>
-</div>
+  <!-- Options (Remove Photo, Update Photo) -->
+  <div *ngIf="showOptions" class="options-window">
+    <button
+      class="options-button remove-button"
+      (click)="deleteProfilePicture()"
+    >
+      Remove Photo
+    </button>
+    <button class="options-button update-button" (click)="openImagePreview()">
+      Update Photo
+    </button>
+  </div>
 
+  <!-- Image Preview and Edit Modal (hidden by default) -->
+  <div *ngIf="isPreviewVisible" class="image-preview-modal">
+    <div class="image-preview-container">
+      <img [src]="previewImage" alt="Preview" class="circle-crop-preview" />
+      <div
+        style="margin-top: 15px; display: flex; justify-content: space-between"
+      >
+        <ion-button color="primary" (click)="saveProfilePicture()"
+          >Save</ion-button
+        >
+        <ion-button color="primary" (click)="openImagePreview()"
+          >Reset</ion-button
+        >
+        <ion-button
+          (click)="isPreviewVisible = false"
+          style="
+            position: absolute;
+            bottom: 250px;
+            left: 280px;
+            width: 30px;
+            height: 30px;
+            padding: 0; /* Remove padding for consistent shape */
+            border-radius: 50%; /* Makes it a perfect circle */
+            color: white; /* White X text for contrast */
+            font-size: 10px; /* Adjust font size of X */
+            text-align: center; /* Center the text inside */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional shadow */
+            
+          "
+        >
+          X
+        </ion-button>
+      </div>
+    </div>
+  </div>
 
   <!-- Profile Edit and Details Section -->
   <ion-card>
@@ -51,13 +94,15 @@
     <ion-card-content *ngIf="!isEditing">
       <p><strong>Name:</strong> {{ user?.name }}</p>
       <p><strong>Email:</strong> {{ user?.email }}</p>
-      <ion-button class="custom-edit-profile" expand="block" (click)="enableEditing()">
+      <ion-button
+        class="custom-edit-profile"
+        expand="block"
+        (click)="enableEditing()"
+      >
         <span>Edit Profile</span>
         <ion-icon name="create-outline"></ion-icon>
       </ion-button>
     </ion-card-content>
-    
-    
 
     <ion-card-content *ngIf="isEditing">
       <ion-item>
@@ -88,7 +133,7 @@
     <span>Log out</span>
     <ion-icon name="arrow-forward-outline"></ion-icon>
   </ion-button>
-  </ion-content>
+</ion-content>
 
 <footer>
   <app-menu-tabs></app-menu-tabs>

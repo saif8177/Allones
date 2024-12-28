@@ -1,66 +1,85 @@
 ion-content {
-  padding: 0; /* Remove padding from the content */
-  margin: 0;  /* Remove margin from the content */
-  height: calc(100vh - 50px); /* Adjust content height to fit above the footer */
-  overflow: hidden; /* Disable scrolling */
+    /* Remove margin from the content */
+  height: calc(100vh - 50px);
+  /* Adjust content height to fit above the footer */
+  overflow: hidden;
+  /* Disable scrolling */
   position: relative;
   
 }
 
 ion-card {
-  
-  margin: 20px; /* Add some margin between the cards */
-  padding: 10px; /* Padding inside cards */
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background-color: #f8f8f848;
+  padding: 10px;
+}
+ion-card p {
+  color: black;
 }
 :host {
-   /* Set the background color for the host */
-  display: block; /* Ensure the host takes up full width and height */
-  height: 100vh; /* Set the height to cover the viewport */
+  /* Set the background color for the host */
+  display: block;
+  /* Ensure the host takes up full width and height */
+  height: 100vh;
+  /* Set the height to cover the viewport */
 }
 
 ::ng-deep ion-content {
-  --background: #f8f8f8c5 !important; /* Force the background color */
+  --background: #f8f8f8c5 !important;
+  /* Force the background color */
 }
 
 
 ion-card-header {
-  
-  padding: 2px; /* Remove padding inside the card header */
+
+  padding: 2px;
+  /* Remove padding inside the card header */
 }
 
 ion-card-title {
-  margin: 2px; /* Remove margin from card title */
-  padding: 2px; /* Remove padding from card title */
-  font-size: 15px; /* Set a specific font size */
-  color: black; /* Set text color to black */
+  margin: 2px;
+  /* Remove margin from card title */
+  padding: 2px;
+  /* Remove padding from card title */
+  font-size: 15px;
+  /* Set a specific font size */
+  color: black;
+  /* Set text color to black */
 }
+
 .custom-edit-profile {
   /* Dark background for the button */
-  color: rgba(255, 255, 255, 0.788); /* Text color */
- /* Fully rounded corners */
+  color: rgba(255, 255, 255, 0.788);
+  /* Text color */
+  /* Fully rounded corners */
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; /* Space between text and icon */
+  gap: 10px;
+  /* Space between text and icon */
   border-radius: 50px;
-  padding: 10px 20px; /* Button padding */
-  font-weight: bold; /* Text style */
-  font-size: 16px; /* Font size for text */
-  transition: all 0.3s ease; /* Smooth hover effect */
+  padding: 10px 20px;
+  /* Button padding */
+  font-weight: bold;
+  /* Text style */
+  font-size: 16px;
+  /* Font size for text */
+  transition: all 0.3s ease;
+  /* Smooth hover effect */
 }
 
 .custom-edit-profile ion-icon {
   margin-left: 5px;
-  font-size: 20px; /* Icon size */
-}
-
-ion-card.ios.hydrated {
-  background-color: #f8f8f848 !important; /* Change to your desired color */
- 
+  font-size: 20px;
+  /* Icon size */
 }
 
 ion-card-content {
-  padding: 10px; /* Padding inside the card content */
+  padding: 10px;
+  /* Padding inside the card content */
 }
 
 footer {
@@ -68,23 +87,32 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: 2; /* Ensure footer stays above other elements */
-  background-color: #f8f8f8c5; /* Footer background color */
-  border-top: 1px solid #ddd; /* Border to separate visually */
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  padding: 0; /* Remove padding from footer */
-  margin: 0; /* Remove margin from footer */
+  z-index: 2;
+  /* Ensure footer stays above other elements */
+  background-color: #f8f8f8c5;
+  /* Footer background color */
+  border-top: 1px solid #ddd;
+  /* Border to separate visually */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow */
+  padding: 0;
+  /* Remove padding from footer */
+  margin: 0;
+  /* Remove margin from footer */
 }
 
 /* Add space for the footer at the bottom */
 ion-button[color="danger"] {
-  margin-bottom: 20px; /* Add space between the button and the footer */
+  margin-bottom: 20px;
+  /* Add space between the button and the footer */
 }
 
-ion-button{
-  width: 250px; /* Set fixed width */
-  margin: 3px auto; /* Center horizontally */
-  display: block; 
+ion-button {
+  width: 250px;
+  /* Set fixed width */
+  margin: 3px auto;
+  /* Center horizontally */
+  display: block;
 }
 
 /* Add styles for the modal and circle crop preview */
@@ -95,11 +123,13 @@ ion-button{
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  background: rgba(0, 0, 0, 0.7);
+  /* Semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Ensure the modal is above all other content */
+  z-index: 9999;
+  /* Ensure the modal is above all other content */
   overflow: hidden;
 }
 
@@ -110,9 +140,12 @@ ion-button{
   border-radius: 10px;
   text-align: center;
   position: relative;
-  z-index: 10000; /* Ensure this container is above other content */
-  max-width: 500px; /* Set a max-width for the modal */
-  width: 80%; /* Make the modal responsive */
+  z-index: 10000;
+  /* Ensure this container is above other content */
+  max-width: 500px;
+  /* Set a max-width for the modal */
+  width: 80%;
+  /* Make the modal responsive */
   height: auto;
 }
 
@@ -128,12 +161,73 @@ ion-button{
 .image-preview-container ion-button {
   margin-top: 10px;
   width: 45%;
-  height: 50px; /* Set a fixed height for both buttons */
+  height: 50px;
+  /* Set a fixed height for both buttons */
   display: flex;
-  align-items: center; /* Align text vertically */
-  justify-content: center; /* Center text horizontally */
+  align-items: center;
+  /* Align text vertically */
+  justify-content: center;
+  /* Center text horizontally */
 }
 
 .image-preview-container ion-button:first-of-type {
   margin-right: 10px;
+}
+
+
+
+.options-window {
+  position: absolute;
+  top: 55px;
+  /* Adjust based on spacing needs */
+  left: 80%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+  /* Ensure it's above other elements */
+}
+
+.options-button {
+  display: block;
+  width: 100px;
+  /* Set a fixed width for consistent layout */
+  text-align: center;
+  margin: 5px 0;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+}
+
+.remove-button {
+  background-color: #f44336;
+}
+
+.update-button {
+  background-color: #4caf50;
+}
+
+.options-button:hover {
+  opacity: 0.9;
+}
+
+.imageplace {
+  margin-left: 140px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-top: 5px;
+  border: 3px solid #1ae8f7;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
 }

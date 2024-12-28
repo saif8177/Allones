@@ -15,6 +15,7 @@ export class AccountComponent implements OnInit {
   isPreviewVisible = false; // Flag for image preview modal
   previewImage: string | ArrayBuffer | null = null; // Store preview image URL
   selectedFile: File | null = null; // Store the selected file
+  showOptions = false;
 
   constructor(
     private authService: AuthService,
@@ -27,20 +28,34 @@ export class AccountComponent implements OnInit {
   ngOnInit(): void {
     this.loadUserData();
   }
-
+  toggleOptions() {
+    this.showOptions = !this.showOptions;
+  }
 
   loadUserData() {
     const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
   
     if (storedUser && storedUser.email) {
+      // Initially set profile picture to default image
+      this.user = {
+        name: storedUser.name || '',
+        email: storedUser.email,
+        profilePicture: 'assets/finaldesign.png', // Set default image initially
+      };
+
+        // Update local storage with default profile picture
+    localStorage.setItem('user', JSON.stringify(this.user));
+    this.cdr.detectChanges(); // Update the UI
+
       // Retrieve user details from the backend
       this.authService.retrieveUserProfile(storedUser.email).subscribe(
         (response: any) => {
           if (response.status === 'success') {
+            // Update user data with actual profile picture if available
             this.user = {
               name: response.user.fullName || '',
               email: storedUser.email,
-              profilePicture: response.user.profilePicture || null, // Already a full URL
+              profilePicture: response.user.profilePicture || 'assets/finaldesign.png', // Set default if null
             };
             localStorage.setItem('user', JSON.stringify(this.user)); // Update local storage
             this.cdr.detectChanges(); // Update UI
@@ -60,15 +75,15 @@ export class AccountComponent implements OnInit {
         this.user = {
           name: user.fullName || '',
           email: user.email,
-          profilePicture: user.profilePicture || null, // Already a full URL
+          profilePicture: user.profilePicture || 'assets/finaldesign.png', // Set default image if null
         };
   
-        localStorage.setItem('user', JSON.stringify(this.user));
+        localStorage.setItem('user', JSON.stringify(this.user)); // Update local storage
         this.cdr.detectChanges(); // Update UI
       }
     });
   }
-  
+   
     
 
   enableEditing() {
@@ -94,6 +109,7 @@ export class AccountComponent implements OnInit {
         reader.readAsDataURL(file);
       }
     };
+    this.showOptions = false; 
   }
 
   async saveProfilePicture() {
@@ -150,6 +166,7 @@ export class AccountComponent implements OnInit {
   }
 
   async deleteProfilePicture() {
+    this.showOptions = false; 
     const loader = await this.loadingController.create({
       message: 'Deleting...',
       spinner: 'crescent',
@@ -161,7 +178,7 @@ export class AccountComponent implements OnInit {
     this.authService.deleteProfilePicture({ email: this.user?.email }).subscribe(
       async (response: any) => {
         if (response.status === 'success') {
-          this.user.profilePicture = null;
+          this.user.profilePicture = 'assets/finaldesign.png';
           localStorage.setItem('user', JSON.stringify(this.user));
           await this.showToast('Profile picture deleted successfully.', 'success');
         } else {

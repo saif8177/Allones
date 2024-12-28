@@ -48,10 +48,10 @@ export class AuthService {
     return this.http.post(uploadUrl, formData);
   }
 
-  deleteProfilePicture(data: { email: string }): Observable<any> {
-    const deleteUrl = 'http://localhost/delete_profile_picture.php'; // Backend endpoint
-    return this.http.post(deleteUrl, data);
+  deleteProfilePicture(data: { email: string }) {
+    return this.http.post('http://localhost/delete_profile_picture.php', data);
   }
+  
   
   
  // Update Profile
