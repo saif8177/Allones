@@ -34,12 +34,30 @@ ion-card-title {
   font-size: 15px; /* Set a specific font size */
   color: black; /* Set text color to black */
 }
+.custom-edit-profile {
+  /* Dark background for the button */
+  color: rgba(255, 255, 255, 0.788); /* Text color */
+ /* Fully rounded corners */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between text and icon */
+  border-radius: 50px;
+  padding: 10px 20px; /* Button padding */
+  font-weight: bold; /* Text style */
+  font-size: 16px; /* Font size for text */
+  transition: all 0.3s ease; /* Smooth hover effect */
+}
+
+.custom-edit-profile ion-icon {
+  margin-left: 5px;
+  font-size: 20px; /* Icon size */
+}
 
 ion-card.ios.hydrated {
   background-color: #f8f8f848 !important; /* Change to your desired color */
  
 }
-
 
 ion-card-content {
   padding: 10px; /* Padding inside the card content */

@@ -1,32 +1,34 @@
 <ion-content class="no-scroll" id="main-content" tabindex="-1" >
   <!-- Profile Picture Container -->
-  <div style="position: relative; width: 100px; height: 100px; margin: auto">
-    <img
-      *ngIf="user?.profilePicture"
-      [src]="user.profilePicture"
-      alt="Profile Picture"
-      style="width: 100%; margin-top: 5px; height: 100%; border-radius: 50%; object-fit: cover"
-    />
-    <!-- Move the + icon to the top, open preview window on click -->
-    <div
-      style="
-        position: absolute;
-        top: 5px;
-        right: 0;
-        border-radius: 50%;
-        width: 100px;
-        height: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 2px solid #ccc;
-        cursor: pointer;
-      "
-      (click)="openImagePreview()"
-    >
-      <ion-icon name="add-outline" size="small"></ion-icon>
-    </div>
+<div style="position: relative; width: 100px; height: 100px; margin: auto">
+  <img
+    *ngIf="user?.profilePicture"
+    [src]="user.profilePicture"
+    alt="Profile Picture"
+    style="width: 100%; margin-top: 5px; height: 100%; border: 3px solid #1ae8f7; border-radius: 50%; object-fit: cover"
+  />
+  <!-- Replace + icon with pencil icon -->
+  <div
+    style="
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      border-radius: 50%;
+      background-color: #ffcc00; /* Background color for the circle */
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+      cursor: pointer;
+    "
+    (click)="openImagePreview()"
+  >
+    <ion-icon name="pencil" style="font-size: 18px; color: white;"></ion-icon>
   </div>
+</div>
+
 
  <!-- Image Preview and Edit Modal (hidden by default) -->
 <div *ngIf="isPreviewVisible" class="image-preview-modal">
@@ -49,8 +51,13 @@
     <ion-card-content *ngIf="!isEditing">
       <p><strong>Name:</strong> {{ user?.name }}</p>
       <p><strong>Email:</strong> {{ user?.email }}</p>
-      <ion-button expand="block" (click)="enableEditing()">Edit Profile</ion-button>
+      <ion-button class="custom-edit-profile" expand="block" (click)="enableEditing()">
+        <span>Edit Profile</span>
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-button>
     </ion-card-content>
+    
+    
 
     <ion-card-content *ngIf="isEditing">
       <ion-item>
@@ -77,8 +84,11 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-button color="danger" (click)="logout()">Log Out</ion-button>
-</ion-content>
+  <ion-button class="custom-logout-button" expand="block" (click)="logout()">
+    <span>Log out</span>
+    <ion-icon name="arrow-forward-outline"></ion-icon>
+  </ion-button>
+  </ion-content>
 
 <footer>
   <app-menu-tabs></app-menu-tabs>
