@@ -169,7 +169,7 @@ export class AccountComponent implements OnInit {
     this.showOptions = false; 
     const loader = await this.loadingController.create({
       message: 'Deleting...',
-      spinner: 'crescent',
+      spinner: 'lines',
       backdropDismiss: false,
     });
   

@@ -8,24 +8,29 @@ import { Component } from '@angular/core';
 export class RestaurantsListComponent {
   restaurantList = [
     {
-      name: 'Bustling Food Stall',
-      image: 'https://via.placeholder.com/300x200.png?text=Cafe+Mocha+Bliss',
-      rating: 4.5
+      name: 'Cheeseburger',
+      description: 'Wendy\'s Burger',
+      rating: 4.9,
+      image: 'assets/icon/cake.png', // Replace with actual image paths
     },
     {
-      name: 'Cafe Mocha Bliss',
-      image: 'https://via.placeholder.com/300x200.png?text=Cafe+Mocha+Bliss',
-      rating: 4
+      name: 'Hamburger',
+      description: 'Veggie Burger',
+      rating: 4.8,
+      image: 'assets/icon/cake.png',
     },
     {
-      name: 'Pizza Paradise',
-      image: 'https://via.placeholder.com/300x200.png?text=Pizza+Paradise',
-      rating: 5
+      name: 'Hamburger',
+      description: 'Chicken Burger',
+      rating: 4.6,
+      image: 'assets/icon/cake.png',
     },
     {
-      name: 'Sushi Delights',
-      image: 'https://via.placeholder.com/300x200.png?text=Sushi+Delights',
-      rating: 4
-    }
+      name: 'Hamburger',
+      description: 'Fried Chicken Burger',
+      rating: 4.5,
+      image: 'assets/icon/cake.png',
+    },
   ];
+  
 }

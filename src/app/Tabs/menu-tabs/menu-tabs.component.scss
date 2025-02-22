@@ -1,52 +1,45 @@
-ion-tabs {
-  --color-selected: #4caf50;
-  --color: #615b5b;
-  --background: #f8f8f8c5;
-
-  ion-tab-bar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #f8f8f8c5;
-    border-top: 1px solid #ddd;
-
-    ion-tab-button {
-      text-align: center;
-      color: var(--color);
-
-      ion-icon {
-        font-size: 24px;
-        margin-bottom: 4px;
-      }
-
-      span {
-        
-        font-size: 12px;
-      }
-
-      &.tab-selected {
-        color: var(--color-selected);
-      }
-    }
-  }
-}
-::ng-deep ion-tab-button span.button-inner {
-  background-color: #f8f8f8c5 !important; /* Apply your desired background color */
-  border-radius: 5px; /* Optional: Add rounded corners if necessary */
+.tab-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #f8f8f8c5;
+  border-top: 1px solid #ddd;
+  z-index: 10;
 }
 
-ion-tab-bar {
-  background-color: #f8f8f8c5 !important;
- /* Prevent overriding with default tab-bar background */
+.tab-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px 0;
+  background-color: #f8f8f8c5;
 }
 
-span.button-inner {
-  background-color: #f8f8f8c5; /* Replace with your desired color */
-  color: #ffffff; /* Adjust text color for contrast */
-  padding: 4px 8px; /* Optional: Add padding */
-  border-radius: 4px; /* Optional: Add rounded corners */
-}
-.parent-class span.button-inner {
-  background-color: #e74c3c; /* Replace with your desired color */
+.tab-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #615b5b;
+  cursor: pointer;
+  text-align: center;
+  flex: 1;
 }
 
+.tab-button ion-icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.tab-button span {
+  font-size: 12px;
+}
+
+.tab-button.active {
+  color: #4caf50; /* Selected tab color */
+}
+
+.tab-button:hover {
+  background-color: rgba(0, 0, 0, 0.05); /* Hover effect */
+  border-radius: 8px;
+}

@@ -30,6 +30,8 @@ const routes: Routes = [
     redirectTo: 'flashscreen',
     pathMatch: 'full'
   },
+  
+  
   { path: 'signup', component: SignupComponent },
   { path: 'account', component: AccountComponent },
   { path: 'cart', component: CartComponent },
